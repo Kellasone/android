@@ -7,7 +7,7 @@
     tools:context=".activities.LogInOrRegisterActivity">
 
     <fragment
-        android:id="@+id/fragment"
+        android:id="@+id/registerfragment"
         android:name="com.example.androidfinal.fragments.LogInOrRegisterFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

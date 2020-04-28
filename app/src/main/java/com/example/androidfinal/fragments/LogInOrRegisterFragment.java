@@ -1,65 +1,76 @@
 package com.example.androidfinal.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.androidfinal.R;
+import com.example.androidfinal.activities.LogInOrRegisterActivity;
+import com.example.androidfinal.activities.MainActivity;
+import com.example.androidfinal.services.AuthService;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link LogInOrRegisterFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class LogInOrRegisterFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
+    AuthService auth;
     public LogInOrRegisterFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment LogInOrRegisterFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static LogInOrRegisterFragment newInstance(String param1, String param2) {
-        LogInOrRegisterFragment fragment = new LogInOrRegisterFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        auth = new AuthService();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_log_in_or_register, container, false);
+
+        final View view =  inflater.inflate(R.layout.fragment_log_in_or_register, container, false);
+        Button loginButton = view.findViewById(R.id.signInButton);
+        Button registerButton = view.findViewById(R.id.RegisterButton);
+
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               TextView email = view.findViewById(R.id.emailText);
+               TextView password = view.findViewById(R.id.passwordText);
+
+               auth.signInUser(email.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                   @Override
+                   public void onComplete(@NonNull Task<AuthResult> task) {
+                       Intent intent = new Intent(getContext(), MainActivity.class);
+                       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                       startActivity(intent);
+                   }
+               });
+            }
+        });
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               TextView email = view.findViewById(R.id.emailText);
+               TextView password = view.findViewById(R.id.passwordText);
+
+               auth.registerUser(email.getText().toString(), password.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                   @Override
+                   public void onComplete(@NonNull Task<AuthResult> task) {
+                       Intent intent = new Intent(getContext(), MainActivity.class);
+                       intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                       startActivity(intent);
+                   }
+               });
+            }
+        });
+
+        return view;
     }
+
+
 }
