@@ -9,13 +9,13 @@
     <!-- TODO: Update blank fragment layout -->
 
     <Button
-        android:id="@+id/add"
+        android:id="@+id/addOrderButton"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="72dp"
         android:layout_marginEnd="20dp"
-        android:text="Adauga comanda"
+        android:text="Add Order"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,10 +28,10 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:text="Vezi toate comenzile"
+        android:text="See All Orders"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/add" />
+        app:layout_constraintTop_toBottomOf="@+id/addOrderButton" />
 
     <Button
         android:id="@+id/see_saved"
@@ -40,7 +40,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:text="Vezi comenzile salvate"
+        android:text="See Saved Orders"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/see_all" />

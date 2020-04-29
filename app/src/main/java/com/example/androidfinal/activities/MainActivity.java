@@ -14,13 +14,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         auth = new AuthService();
+        if(auth.getCurrentUser() != null)
+            setContentView(R.layout.activity_main);
+        else setContentView(R.layout.activity_log_in_or_register);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        if(auth.getCurrentUser() != null)
-            setContentView(R.layout.activity_main);
-        else setContentView(R.layout.activity_log_in_or_register);
     }
 }
